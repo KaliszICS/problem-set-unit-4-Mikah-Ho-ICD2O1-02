@@ -6,7 +6,7 @@
  */
 
 import java.util.Scanner;
-import java.util.Random;
+import java.util.Random; // i realized what i did wrong at like 3 something so i can't really fix it anymore
 
 public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm still trying to figure out when and where to use methods
 
@@ -47,7 +47,7 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
 
 				menu = "Please select High, Low or Even:" + //yes i know this looks awful
 					"\n1. High (" + (middle + 1) + " to " + end + ")" +
-					"\n2. Low (" + (middle - 1) + " to " + start + ")" +
+					"\n2. Low (" + start + " to " + (middle - 1) + ")" +
 					"\n3. Even (" + middle + ")\n";
 			}
 		}
@@ -58,7 +58,7 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
 
 			menu = "Please select High, Low or Even:" +
 					"\n1. High (" + (middle2 + 1) + " to " + end + ")" +
-					"\n2. Low (" + (middle1 - 1) + " to " + start + ")" +
+					"\n2. Low (" + start + " to " + (middle - 1) + ")" +
 					"\n3. Even (" + middle1 + " or " + middle2 + ")\n"; 
 		}
 
@@ -98,14 +98,15 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
 				score++;
 			}
 
-			System.out.println("The number was " + randomNum + ". You were " + result + ".\nCurrent Score: " + score);
+			System.out.println("\nThe number was " + randomNum + ". You were " + result + ".\nCurrent Score: " + score);
 			
 			roundNumber++;
 		}
 
-		System.out.println("\nTotal Score: " + score);
+		System.out.println("\nTotal Score: " + score); //123
 
-		if (score >= (rounds / 2)) { //checks if score is 50% or more of rounds
+		if (rounds % 2 == 0 && score >= (rounds / 2) || //checks if score is 50% or more of rounds
+			rounds % 2 != 0 && score >= ((rounds / 2) + 1)) { //adds 1 for odd number of rounds
 
 			System.out.println("Congratulations! You got " + score + " out of " + rounds + " correct.");
 		}
@@ -128,6 +129,16 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
 			if (input.hasNextInt()) {
 
 				rounds = input.nextInt();
+
+				if (rounds > 0) {
+
+					return rounds;
+				}
+				else {
+
+					System.out.println("Invalid input!\n");
+					input.nextLine();
+				}
 			}
 			else {
 
@@ -148,7 +159,7 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
 		String start = "";
 		String end = "";
 
-		do {
+		do { //2-2-2   2-2-   2---2   (cases that don't work because i made the get start and end of range methods return integers instead of strings sdhfshdfjsd)
 		    
 		    range = ""; //clearing values for every iteration (not having this messed me up earlier)
 		    start = "";
@@ -158,19 +169,21 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
 
 			range = input.nextLine();
 
-			if (range.length() >= 3 && range.length() <= 5 && range.contains("-")) { //range can only be between 3 and 5 characters depending on the number of negative values
+			if (range.length() >= 3 && range.length() <= 5 && range.contains("-") && !range.endsWith("-")) { //range can only be between 3 and 5 characters depending on the number of negative values
 
 				start = getStartOfRange(range) + ""; //values have to remain as strings until they are validated
 				end = getEndOfRange(range) + "";
     			
-    			if (checkNumber(start) == true && checkNumber(end) == true && 
+    			if (start.length() > 0 && end.length() > 0 && 
+					checkNumber(start) == true && checkNumber(end) == true && 
+					
 					Integer.parseInt(end) >= Integer.parseInt(start) + 2) { //checks if range is large enough and if start < end
     			    
     				return range;
     			}
 			}
 			
-			System.out.println("Invalid input!\n");
+			System.out.println("Invalid input!");
 			
 		} while (range.length() < 3 || range.length() > 5 || !range.contains("-") || 
 				checkNumber(start) == false || checkNumber(end) == false || 
@@ -240,7 +253,7 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
 	public static boolean checkNumber(String num) { //checks if value is a number or not
 	    
 	    int ascii = 0;
-		boolean isNumber = false;
+		boolean isNumber = true;
 		
 	    if (num.startsWith("-")) { //negative number
 	    
@@ -248,13 +261,12 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
     
     		  	ascii = num.charAt(i);
     			
-    		  	if (ascii >= 48 && ascii <= 57) { //ascii values of all digits
+    		  	if (ascii < 48 || ascii > 57) { //ascii values excluding all digits
     		        
-    			    isNumber = true; //checks if the indexed value is a digit
+    			    isNumber = false; //checks if the indexed value is not a digit
+
+					return isNumber;
     	   	   	}
-				else {
-					isNumber = false;
-				}
     		}
 	    }
 	    else { //positive number
@@ -263,13 +275,12 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
     
     		  	ascii = num.charAt(i);
     			
-    		  	if (ascii >= 48 && ascii <= 57) {
+    		  	if (ascii < 48 || ascii > 57) {
     		        
-    			    isNumber = true;
+    			    isNumber = false;
+					
+					return isNumber;
     	   	   	}
-				else {
-					isNumber = false;
-				}
     		}
 	    }
 	    
@@ -312,5 +323,5 @@ public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm st
 // i honestly hated writing this (does it get any better? *sob*)
 
 // anyway, here's my question:
-// if your life was a book, movie, show, game or song, which would it be?
-// or in other words, what is the book, movie, show, game or song of your life?
+// if your life was a book, movie, show, game or song/album, which would it be?
+// or in other words, what is the book, movie, show, game or song/album of your life?
