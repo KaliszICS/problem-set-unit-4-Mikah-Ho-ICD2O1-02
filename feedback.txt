@@ -1,0 +1,20 @@
+K(30%): 100
+I(30%): 78
+C(10%): 100
+A(30%): 80
+87.4
+
+
+You had the right idea of having two middle numbers, however calculating them as a double would have allowed you to round them up and down to their appropriate numbers, while keeping them the same when they become a whole number.
+This would have solved a lot of your problems. It also sets it up so your program runs the same way the rest of the way through regardless of which version you have.
+If you're struggling to figure out when to make a method, think about if you are doing something that has a singular purpose or creates a singular value.  These are good times to use a function (validations are useful here since you can then use their result as the condition for a loop or if)
+Your final if could just use a double for the calculation so you don't need to figure out if it is an odd or even number of rounds.
+checkNumber(start) == false should just be !(checkNumber(start).  Don't use == or != with booleans.
+checkNumber fails for an empty string or just a - (for loop never runs so it returns true)
+String result = "incorrect"; is not being set every loop, so once you get 1 right you're always right.
+Reduce your whitespacing a bit, it is spreading out the code too much.  An if or while loop don't need a gap between them and the 1 line inside of it.
+
+
+
+
+I have no idea about your question.  Maybe one where the character is unlucky in small mostly irrelevant situations but then gets lucky in big life altering ones.

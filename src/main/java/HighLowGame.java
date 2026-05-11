@@ -8,7 +8,7 @@
 import java.util.Scanner;
 import java.util.Random; // i realized what i did wrong at like 3 something so i can't really fix it anymore
 
-public class ProblemSet { //note: sorry if this is atrocious to read lol, i'm still trying to figure out when and where to use methods
+public class HighLowGame { //note: sorry if this is atrocious to read lol, i'm still trying to figure out when and where to use methods
 
 	public static void main(String args[]) { //where the main part of the game runs
 
